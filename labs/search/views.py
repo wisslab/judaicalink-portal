@@ -35,10 +35,30 @@ def load(request):
         return HttpResponse(response)
 
 def search (request):
-    query = request.GET.get ('lookfor')
+    query = get_query(request)
+    print (request)
     page = int (request.GET.get ('page'))
     context = process_query (query, page)
     return render (request, 'search/search_result.html', context)
+
+def get_query (request):
+    query = ""
+    submitted_search = {
+        " lookfor": request.GET.get ('lookfor'),
+        " name:": request.GET.get ('searchName'),
+        " Alternatives:": request.GET.get ('searchAlternatives'),
+        " Publication:": request.GET.get ('searchPublication'),
+        " birthDate:": request.GET.get ('searchBirthdate'),
+        " deathDate:": request.GET.get ('searchDeathdate'),
+        " birthLocation:": request.GET.get ('searchBirthlocation'),
+        " deathLocation:": request.GET.get ('searchDeathlocation')
+    }
+    print (submitted_search)
+
+    for i in submitted_search:
+        if submitted_search [i] != "" and submitted_search [i] != None:
+            query = query + i + submitted_search[i]
+    return query.strip()
 
 def process_query (query, page):
     page = int (page)
