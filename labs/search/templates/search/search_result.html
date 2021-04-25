@@ -5,7 +5,7 @@
 
 {% include "search/header.html" %}
 
-<main>
+<main class="row">
 
 <div class="col-12 col-sm-12 ml-xl-0 col-md-12 col-lg-9 col-xl-8">
 
@@ -23,17 +23,20 @@
         </div>
     </form>
 
-    <br><br>
+    <br>
 
     {% if total_hits > 0 %}
-        <p>Found {{ total_hits }} documents for the query "<b>{{ query }}</b>".</p>
+    <div class="alert alert-success text-center" role="alert">
+    Found {{ total_hits }} documents for the query "<b>{{ query }}</b>".
+    </div>
     {% else %}
-        <p>No documents matching your query "<b>{{ query}}</b>"!</p>
+    <div class="alert alert-danger text-center" role="alert">
+    No documents matching your query "<b>{{ query }}</b>"!
+    </div>
     {% endif %}
 
-    <br><br>
-
-    <table class="table table-striped">
+    <div class="table-responsive">
+    <table class="table table-light table-striped">
 
         {% for data in ordered_dataset %}
 
@@ -52,7 +55,7 @@
         {% endfor %}
 
     </table>
-
+    </div>
     <br> <br>
 
     {% if pages > 1 %}
@@ -118,7 +121,11 @@
     {% endif %}
 
     </div>
-
+    <div class="col-md-0 col-lg-3 col-xl-4">
+            <div class="img-fluid sticky-top mt-4" id="picturemargintop30">
+            <img src="/static/img/JudaicaLink_Knowledge_Graph.jpg" class="img-thumbnail img-fluid" alt="Judaicalink Knowledge Graph">
+            <div>
+    </div>
 </main>
 
 {% include "search/footer.html" %}
