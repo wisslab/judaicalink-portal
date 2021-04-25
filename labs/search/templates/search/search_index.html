@@ -8,25 +8,93 @@
 <main class="row">
 
 	<div class="col-12 col-sm-12 ml-xl-0 col-md-12 col-lg-9 col-xl-8">
-
-    <h1 class="text-center">JudaicaLink Search</h1>
-
-
-        <form method="get" action="search">
-            <div class="col-xs-6">
-                <input type="hidden" name="page" value="1">
-                <div class="input-group">
-                    <input class="form-control" type="text" name="lookfor" value="" placeholder="Enter your search keyword">
-                    <div class="input-group-btn" >
-                        <button type="submit" class="btn btn-light search_button"><i class="fas fa-search"></i></button>
+        <h1 class="text-center">JudaicaLink Search</h1>
+        <p>
+        Here you can access the JudaicaLink Knowledge Graph via a full text search on fields such as label, birth and death dates as well as locations.
+        </p>
+            <form method="get" action="search">
+                <div class="col-xs-6">
+                    <input type="hidden" name="page" value="1">
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="lookfor" value="" placeholder="Enter your search keyword">
+                        <div class="input-group-btn" >
+                            <button type="submit" class="btn btn-light search_button"><i class="fas fa-search"></i></button>
+                        </div>
                     </div>
                 </div>
+            </form>
+        <br>
+
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="color:#0056b3">
+                            Advanced Search
+                        </button>
+                    </h5>
+                </div>
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <form  method="get" action="search">
+                    <input type="hidden" name="page" value="1">
+                    <div class="form-row">
+                        <div class="form-group col-md-4" style="border-style:none">
+                            <label for="searchName">Name</label>
+                            <input type="text" class="form-control" id="searchName" placeholder="name">
+                        </div>
+                        <div class="form-group col-md-4" style="border-style:none">
+                            <label for="searchAlternatives">Alternatives</label>
+                            <input type="text" class="form-control" id="searchAlternatives" placeholder="alternatives">
+                        </div>
+                        <div class="form-group col-md-4" style="border-style:none">
+                            <label for="searchPublication">Publication</label>
+                            <input type="text" class="form-control" id="searchPublication" placeholder="publication">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="searchBirthdate">Birthdate</label>
+                            <input type="text" class="form-control" id="searchBirthdate" placeholder="birthdate">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="searchDeathdate">Deathdate</label>
+                            <input type="text" class="form-control" id="searchDeathdate" placeholder="deathdate">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="searchBirthlocation">Birthlocation</label>
+                            <input type="text" class="form-control" id="searchBirthlocation" placeholder="birthlocation">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="searchDeathlocation">Deathlocation</label>
+                            <input type="text" class="form-control" id="searchDeathlocation" placeholder="deathlocation">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary search_button">Submit Search</button>
+                    </form>
+                </div>
             </div>
-        </form>
-<br>
-<p>
-Here you can access the JudaicaLink Knowledge Graph via a full text search on fields such as label, birth and death dates as well as locations.
-</p>
+        </div>
+
+
+    <!--
+        <i class="fas fa-info-circle"></i>
+
+        AND, OR, NOT operators can be used in your query<br>
+        To search with operators use the correct syntax:<br>
+        keyword <strong>operator</strong> keyword<br>
+        Example: stuttgart AND hamburg<br>
+        This query will return all entities with the word 'hamburg' and 'stuttgart' in any field.<br>
+        <br>
+        ---<br>
+        <br>
+        Wildcards<br>
+        ? can be used to replace one character<br>
+        * can be used to replace zero or more characters<br>
+        Examples: birthDate:10*, fel?mann<br>
+    -->
 
         <img src="/static/img/JudaicaLink_Knowledge_Graph.jpg" class="img-thumbnail img-fluid mt-4" alt="Judaicalink Knowledge Graph">
     </div>
@@ -47,6 +115,10 @@ Here you can access the JudaicaLink Knowledge Graph via a full text search on fi
             <li><i class="fa fa-search-plus"></i> Peláez del Rosal, Jesús</li>
         </ul>
     </div>
+
+
+
+
 </div>
 </main>
 <!--content end-->
