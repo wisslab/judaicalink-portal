@@ -36,41 +36,59 @@ def load(request):
 
 def search (request):
     query = get_query(request)
-    print (request)
+    #print (request)
     page = int (request.GET.get ('page'))
     context = process_query (query, page)
     return render (request, 'search/search_result.html', context)
 
 def get_query (request):
-    query = ""
+    query_str = ""
     submitted_search = {
-        " lookfor": request.GET.get ('lookfor'),
-        " name:": request.GET.get ('searchName'),
-        " Alternatives:": request.GET.get ('searchAlternatives'),
-        " Publication:": request.GET.get ('searchPublication'),
-        " birthDate:": request.GET.get ('searchBirthdate'),
-        " deathDate:": request.GET.get ('searchDeathdate'),
-        " birthLocation:": request.GET.get ('searchBirthlocation'),
-        " deathLocation:": request.GET.get ('searchDeathlocation')
+        "lookfor": request.GET.get ('lookfor'),
+        "name": request.GET.get ('searchName'),
+        "Alternatives": request.GET.get ('searchAlternatives'),
+        "Publication": request.GET.get ('searchPublication'),
+        "birthDate": request.GET.get ('searchBirthdate'),
+        "deathDate": request.GET.get ('searchDeathdate'),
+        "birthLocation": request.GET.get ('searchBirthlocation'),
+        "deathLocation": request.GET.get ('searchDeathlocation')
     }
-    print (submitted_search)
+
+    cleared_submitted_search = submitted_search.copy()
+
+    for i in submitted_search:
+        if cleared_submitted_search [i] == None or cleared_submitted_search [i] == "":
+            del cleared_submitted_search [i]
+
+    print (cleared_submitted_search)
+    submitted_search = cleared_submitted_search
 
     for i in submitted_search:
         if submitted_search [i] != "" and submitted_search [i] != None:
-            query = query + i + submitted_search[i]
-    return query.strip()
+            if i != "lookfor":
+                query_str = query_str + " " + i + ":" + submitted_search[i]
+            else:
+                query_str = query_str + submitted_search[i]
 
-def process_query (query, page):
+    query_dic = {
+        "query_str" : query_str.strip(),
+        "submitted_search" : submitted_search,
+    }
+    return query_dic
+
+def process_query (query_dic, page):
     page = int (page)
     es = Elasticsearch()
     size = 10
     start = (page - 1) * size
+    query_str = query_dic ["query_str"]
+    print (query_str)
 
     body = {
         "from" : start, "size" : size,
         "query" : {
             "query_string": {
-                "query": query,
+                "query": query_str,
                 "fields": ["name^4", "Alternatives^3", "birthDate", "birthLocation^2", "deathDate", "deathLocation^2", "Abstract", "Publication"]
             }
         },
@@ -170,7 +188,8 @@ def process_query (query, page):
         "previous" : page -1,
         "total_hits" : total_hits,
         "page" : page,
-        "query" : query,
+        "query" : query_dic ["submitted_search"],
+        "query_str" : query_dic ["query_str"],
         "ordered_dataset" : ordered_dataset,
         "dataslug_to_dataset": dataslug_to_dataset,
     }

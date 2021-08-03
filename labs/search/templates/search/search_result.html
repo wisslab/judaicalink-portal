@@ -15,7 +15,7 @@
         <div class="col-xs-6">
             <input type="hidden" name="page" value="1">
             <div class="input-group">
-                <input class="form-control" type="text" name="lookfor" value="{{query}}">
+                <input class="form-control" type="text" name="lookfor" value="{{query.lookfor}}">
                 <div class="input-group-btn" >
                     <button type="submit" class="btn btn-light search_button"><i class="fas fa-search"></i></button>
                 </div>
@@ -25,9 +25,64 @@
 
     <br>
 
+    <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="color:#0056b3">
+                            Advanced Search
+                        </button>
+                    </h5>
+                </div>
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <form  method="get" action="search">
+                    <input type="hidden" name="page" value="1">
+                    <div class="form-row">
+                        <div class="form-group col-md-4" style="border-style:none">
+                            <label for="searchName">Name</label>
+                            <input type="text" name="searchName" class="form-control" id="searchName" placeholder="name" value="{{query.name}}">
+                        </div>
+                        <div class="form-group col-md-4" style="border-style:none">
+                            <label for="searchAlternatives">Alternatives</label>
+                            <input type="text" name="searchAlternatives" class="form-control" id="searchAlternatives" placeholder="alternatives" value="{{query.Alternatives}}">
+                        </div>
+                        <div class="form-group col-md-4" style="border-style:none">
+                            <label for="searchPublication">Publication</label>
+                            <input type="text" name="searchPublication" class="form-control" id="searchPublication" placeholder="publication" value="{{query.Publication}}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="searchBirthdate">Birthdate</label>
+                            <input type="text" name="searchBirthdate" class="form-control" id="searchBirthdate" placeholder="birthdate" value="{{query.birthDate}}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="searchDeathdate">Deathdate</label>
+                            <input type="text" name="searchDeathdate" class="form-control" id="searchDeathdate" placeholder="deathdate" value="{{query.deathDate}}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="searchBirthlocation">Birthlocation</label>
+                            <input type="text" name="searchBirthlocation" class="form-control" id="searchBirthlocation" placeholder="birthlocation" value="{{query.birthLocation}}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="searchDeathlocation">Deathlocation</label>
+                            <input type="text" name="searchDeathlocation" class="form-control" id="searchDeathlocation" placeholder="deathlocation" value="{{query.deathLocation}}">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary search_button">Submit Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
     {% if total_hits > 0 %}
     <div class="alert alert-success text-center" role="alert">
-    Found {{ total_hits }} documents for the query "<b>{{ query }}</b>".
+    Found {{ total_hits }} documents for the query "<b>{{ query_str }}</b>".
     </div>
     {% else %}
     <div class="alert alert-danger text-center" role="alert">
