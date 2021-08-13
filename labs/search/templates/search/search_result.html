@@ -11,11 +11,14 @@
 
 <h1 class="text-center">JudaicaLink Search</h1>
 
+
+    <!-- Simple Search -->
+
     <form method="get" action="search">
         <div class="col-xs-6">
             <input type="hidden" name="page" value="1">
             <div class="input-group">
-                <input class="form-control" type="text" name="lookfor" value="{{query.lookfor}}">
+                <input class="form-control" type="text" name="lookfor" value="{{ query_str.lookfor }}">
                 <div class="input-group-btn" >
                     <button type="submit" class="btn btn-light search_button"><i class="fas fa-search"></i></button>
                 </div>
@@ -25,7 +28,9 @@
 
     <br>
 
-    <div id="accordion">
+    <!-- Advanced Search -->
+
+        <div id="accordion">
             <div class="card">
                 <div class="card-header" id="headingOne">
                     <h5 class="mb-0">
@@ -34,44 +39,109 @@
                         </button>
                     </h5>
                 </div>
+
+
             <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="card-body">
                     <form  method="get" action="search">
                     <input type="hidden" name="page" value="1">
+
+                    <!-- 1. Row -->
                     <div class="form-row">
-                        <div class="form-group col-md-4" style="border-style:none">
-                            <label for="searchName">Name</label>
-                            <input type="text" name="searchName" class="form-control" id="searchName" placeholder="name" value="{{query.name}}">
+                        <div class="form-group col-2">
                         </div>
-                        <div class="form-group col-md-4" style="border-style:none">
-                            <label for="searchAlternatives">Alternatives</label>
-                            <input type="text" name="searchAlternatives" class="form-control" id="searchAlternatives" placeholder="alternatives" value="{{query.Alternatives}}">
+                        <div class="form-group col-4">
+                            <select class="form-control" name="searchOptions1">
+                            <option value="name:">Name</option>
+                            <option value="Alternatives:">Alternatives</option>
+                            <option value="Publication:">Publication</option>
+                            <option value="birthDate:">Birthdate</option>
+                            <option value="deathDate:">Deathdate</option>
+                            <option value="birthLocation:">Birthlocation</option>
+                            <option value="deathLocation:">Deathlocation</option>
+                            </select>
                         </div>
-                        <div class="form-group col-md-4" style="border-style:none">
-                            <label for="searchPublication">Publication</label>
-                            <input type="text" name="searchPublication" class="form-control" id="searchPublication" placeholder="publication" value="{{query.Publication}}">
+                        <div class="form-group col-6">
+                            <input type="text" name="searchInput1" class="form-control" id="searchInput1" placeholder="">
                         </div>
                     </div>
+
+                    <!-- 2. Row -->
                     <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="searchBirthdate">Birthdate</label>
-                            <input type="text" name="searchBirthdate" class="form-control" id="searchBirthdate" placeholder="birthdate" value="{{query.birthDate}}">
+                        <div class="form-group col-2">
+                            <select class="form-control" name="searchOperators2">  <!-- richtiger Operator muss übergeben werden -->
+                            <!--Eine solche Verknüpfung funktioniert: "name:Albert Einstein AND birthDate:1879 NOT birthLocation:Ulm"-->
+                            <option value=" AND ">AND</option>
+                            <option value=" OR ">OR</option>
+                            <option value=" NOT ">NOT</option>
+                            </select>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="searchDeathdate">Deathdate</label>
-                            <input type="text" name="searchDeathdate" class="form-control" id="searchDeathdate" placeholder="deathdate" value="{{query.deathDate}}">
+                        <div class="form-group col-4">
+                            <select class="form-control" name="searchOptions2"> <!-- richtiges Suchfeld muss übergeben werden -->
+                            <option value="Publication:">Publication</option>
+                            <option value="name:">Name</option>
+                            <option value="Alternatives:">Alternatives</option>
+                            <option value="birthDate:">Birthdate</option>
+                            <option value="deathDate:">Deathdate</option>
+                            <option value="birthLocation:">Birthlocation</option>
+                            <option value="deathLocation:">Deathlocation</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-6">
+                            <input type="text" name="searchInput2" class="form-control" id="searchInput2" placeholder="">
                         </div>
                     </div>
+
+                    <!-- 3. Row -->
                     <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="searchBirthlocation">Birthlocation</label>
-                            <input type="text" name="searchBirthlocation" class="form-control" id="searchBirthlocation" placeholder="birthlocation" value="{{query.birthLocation}}">
+                        <div class="form-group col-2">
+                            <select class="form-control" name="searchOperators3">
+                            <option value=" AND ">AND</option>
+                            <option value=" OR ">OR</option>
+                            <option value=" NOT ">NOT</option>
+                            </select>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="searchDeathlocation">Deathlocation</label>
-                            <input type="text" name="searchDeathlocation" class="form-control" id="searchDeathlocation" placeholder="deathlocation" value="{{query.deathLocation}}">
+                        <div class="form-group col-4">
+                            <select class="form-control" name="searchOptions3">
+                            <option value="birthDate:">Birthdate</option>
+                            <option value="name:">Name</option>
+                            <option value="Alternatives:">Alternatives</option>
+                            <option value="Publication:">Publication</option>
+                            <option value="deathDate:">Deathdate</option>
+                            <option value="birthLocation:">Birthlocation</option>
+                            <option value="deathLocation:">Deathlocation</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-6">
+                            <input type="text" name="searchInput3" class="form-control" id="searchInput3" placeholder="">
                         </div>
                     </div>
+
+                    <!-- 4. Row -->
+                    <div class="form-row">
+                        <div class="form-group col-2">
+                            <select class="form-control" name="searchOperators4">
+                            <option value=" AND ">AND</option>
+                            <option value=" OR ">OR</option>
+                            <option value=" NOT ">NOT</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-4">
+                            <select class="form-control" name="searchOptions4">
+                            <option value="deathDate:">Deathdate</option>
+                            <option value="name:">Name</option>
+                            <option value="Alternatives:">Alternatives</option>
+                            <option value="Publication:">Publication</option>
+                            <option value="birthDate:">Birthdate</option>
+                            <option value="birthLocation:">Birthlocation</option>
+                            <option value="deathLocation:">Deathlocation</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-6">
+                            <input type="text" name="searchInput4" class="form-control" id="searchInput4" placeholder="">
+                        </div>
+                    </div>
+
                     <button type="submit" class="btn btn-primary search_button">Submit Search</button>
                     </form>
                 </div>
@@ -86,7 +156,7 @@
     </div>
     {% else %}
     <div class="alert alert-danger text-center" role="alert">
-    No documents matching your query "<b>{{ query }}</b>"!
+    No documents matching your query "<b>{{ query_str }}</b>"!
     </div>
     {% endif %}
 

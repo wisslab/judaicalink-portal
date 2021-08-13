@@ -42,38 +42,57 @@ def search (request):
     return render (request, 'search/search_result.html', context)
 
 def get_query (request):
-    query_str = ""
-    submitted_search = {
-        "lookfor": request.GET.get ('lookfor'),
-        "name": request.GET.get ('searchName'),
-        "Alternatives": request.GET.get ('searchAlternatives'),
-        "Publication": request.GET.get ('searchPublication'),
-        "birthDate": request.GET.get ('searchBirthdate'),
-        "deathDate": request.GET.get ('searchDeathdate'),
-        "birthLocation": request.GET.get ('searchBirthlocation'),
-        "deathLocation": request.GET.get ('searchDeathlocation')
-    }
+    submitted_search = [
+        # Simple Search
+        {"lookfor": request.GET.get ('lookfor')},
+
+        # Advanced Search
+        {"Option1": request.GET.get('searchOptions1'),
+        "Input1": request.GET.get('searchInput1')},
+
+        {"Operator2": request.GET.get('searchOperators2'),
+        "Option2": request.GET.get('searchOptions2'),
+        "Input2": request.GET.get('searchInput2')},
+
+        {"Operator3": request.GET.get('searchOperators3'),
+        "Option3": request.GET.get('searchOptions3'),
+        "Input3": request.GET.get('searchInput3')},
+
+        {"Operator4": request.GET.get('searchOperators4'),
+        "Option4": request.GET.get('searchOptions4'),
+        "Input4": request.GET.get('searchInput4')}
+    ]
 
     cleared_submitted_search = submitted_search.copy()
+    print("submitted_search-----------------------------------------------------")
+    print(submitted_search)
+    for dictionary in submitted_search:
+        for entry in dictionary:
+            if dictionary[entry] == None or dictionary[entry] == "":
+                # leere Suchanfragen werden gelöscht - sobald ein Inputfeld leer ist
+                print("dictionary-------------------------------------------")
+                print(dictionary)
+                cleared_submitted_search.remove(dictionary)
+                break
 
-    for i in submitted_search:
-        if cleared_submitted_search [i] == None or cleared_submitted_search [i] == "":
-            del cleared_submitted_search [i]
 
-    print (cleared_submitted_search)
+    print(cleared_submitted_search)
     submitted_search = cleared_submitted_search
+    query_str = ""
 
-    for i in submitted_search:
-        if submitted_search [i] != "" and submitted_search [i] != None:
-            if i != "lookfor":
-                query_str = query_str + " " + i + ":" + submitted_search[i]
-            else:
-                query_str = query_str + submitted_search[i]
+    for dictionary in submitted_search:
+        for entry in dictionary:
+            query_str = query_str + dictionary[entry]
+
+    if query_str.startswith((" AND ", " OR ", " NOT ")):
+        query_str = query_str.strip(" AND OR NOT ")
 
     query_dic = {
         "query_str" : query_str.strip(),
         "submitted_search" : submitted_search,
     }
+
+    print(query_dic)
     return query_dic
 
 def process_query (query_dic, page):
