@@ -207,10 +207,10 @@ def process_query (query_dic, page):
         "previous" : page -1,
         "total_hits" : total_hits,
         "page" : page,
-        "query" : query_dic ["submitted_search"],
+        #"query" : query_dic ["submitted_search"],
         "query_str" : query_dic ["query_str"],
         "ordered_dataset" : ordered_dataset,
-        "dataslug_to_dataset": dataslug_to_dataset,
+        #"dataslug_to_dataset": dataslug_to_dataset,
     }
 
     return context

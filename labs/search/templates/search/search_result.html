@@ -186,7 +186,7 @@
     {% if pages > 1 %}
 
         <form style="display: inline;" method="get" action="search">
-            <input type="hidden" name="lookfor" value="{{ query }}">
+            <input type="hidden" name="lookfor" value="{{ query_str }}">
             <input type="hidden" name="page" value="{{ 1 }}">
             {% if page != 1 %}
             <button class="btn btn-light paging_button_inactive" type="submit" > {{ 1 }} </button>
@@ -198,7 +198,7 @@
         {% if page != 1 %}
 
         <form style="display: inline;" method="get" action="search">
-            <input type="hidden" name="lookfor" value="{{ query }}">
+            <input type="hidden" name="lookfor" value="{{ query_str }}">
             <input type="hidden" name="page" value="{{ previous }}">
             <button class="btn btn-light paging_button_inactive" type="submit" > previous </button>
         </form>
@@ -208,7 +208,7 @@
         {% for i in paging %}
 
             <form style="display: inline;" method="get" action="search">
-                <input type="hidden" name="lookfor" value="{{ query }}">
+                <input type="hidden" name="lookfor" value="{{ query_str }}">
                 <input type="hidden" name="page" value="{{ i }}">
                 {% if i == page %}
                 <button class="btn btn-light paging_button_active" type="submit" > {{ i }} </button>
@@ -222,7 +222,7 @@
         {% if page != pages %}
 
         <form style="display: inline;" method="get" action="search">
-            <input type="hidden" name="lookfor" value="{{ query }}">
+            <input type="hidden" name="lookfor" value="{{ query_str }}">
             <input type="hidden" name="page" value="{{ next }}">
             <button class="btn btn-light paging_button_inactive" type="submit" > next </button>
         </form>
@@ -232,7 +232,7 @@
         {% if pages != 1 %}
 
         <form style="display: inline;" method="get" action="search">
-            <input type="hidden" name="lookfor" value="{{ query }}">
+            <input type="hidden" name="lookfor" value="{{ query_str }}">
             <input type="hidden" name="page" value="{{ pages }}">
             {% if pages != page %}
             <button class="btn btn-light paging_button_inactive" type="submit" > {{ pages }} </button>
